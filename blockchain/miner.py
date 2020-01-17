@@ -25,6 +25,36 @@ def proof_of_work(last_proof):
     print("Searching for next proof")
     proof = 0
     #  TODO: Your code here
+    normal = proof
+    double = proof
+    triple = proof
+    top_to_bottom = last_proof
+    top_to_bottom_double = last_proof
+    top_to_bottom_triple = last_proof
+
+
+
+    while valid_proof(last_proof, normal) == False and valid_proof(last_proof, double) == False and valid_proof(last_proof, triple) == False and valid_proof(last_proof, top_to_bottom) == False and valid_proof(last_proof, top_to_bottom_double) == False and valid_proof(last_proof, top_to_bottom_triple) == False:
+        normal += 1
+        double += 2
+        triple += 3
+        top_to_bottom -= 1
+        top_to_bottom_double -= 2
+        top_to_bottom_triple -= 3
+
+
+        if valid_proof(last_proof, normal) == True:
+            proof = normal
+        elif valid_proof(last_proof, double) == True:
+            proof = double
+        elif valid_proof(last_proof, triple) == True:
+            proof = triple
+        elif valid_proof(last_proof, top_to_bottom) == True:
+            proof = top_to_bottom
+        elif valid_proof(last_proof, top_to_bottom_double) == True:
+            proof = top_to_bottom_double
+        elif valid_proof(last_proof, top_to_bottom_triple) == True:
+            proof = top_to_bottom_triple
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -40,7 +70,15 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
-    pass
+    current = str(proof)
+    hashed_currrent = hashlib.sha256(current.encode()).hexdigest()
+
+    last = str(last_hash)
+    hashed_last = hashlib.sha256(last.encode()).hexdigest()
+
+    return hashed_currrent[:6] == hashed_last[-6:]
+
+
 
 
 if __name__ == '__main__':

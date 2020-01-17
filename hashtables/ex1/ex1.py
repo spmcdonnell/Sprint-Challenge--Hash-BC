@@ -13,8 +13,21 @@ def get_indices_of_item_weights(weights, length, limit):
     YOUR CODE HERE
     """
 
-    return None
+    for i in range(length):
+        hash_table_insert(ht, weights[i], i)
 
+    for j in range(length):
+        weight_difference = limit - weights[j]
+
+        difference_key = hash_table_retrieve(ht, weight_difference)
+
+        if difference_key != None:
+            if difference_key >= j:
+                return (difference_key, j)
+            else:
+                return (j, difference_key)
+    
+    return None
 
 def print_answer(answer):
     if answer is not None:
